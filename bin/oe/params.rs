@@ -16,6 +16,13 @@
 
 use std::{collections::HashSet, fmt, fs, num::NonZeroU32, str, time::Duration};
 
+use crate::{
+    miner::{
+        gas_price_calibrator::{GasPriceCalibrator, GasPriceCalibratorOptions},
+        gas_pricer::GasPricer,
+    },
+    user_defaults::UserDefaults,
+};
 use ethcore::{
     client::Mode,
     ethereum,
@@ -24,13 +31,8 @@ use ethcore::{
 use ethereum_types::{Address, U256};
 use fetch::Client as FetchClient;
 use journaldb::Algorithm;
-use miner::{
-    gas_price_calibrator::{GasPriceCalibrator, GasPriceCalibratorOptions},
-    gas_pricer::GasPricer,
-};
 use parity_runtime::Executor;
 use parity_version::version_data;
-use user_defaults::UserDefaults;
 
 use crate::configuration;
 
@@ -38,6 +40,8 @@ use crate::configuration;
 pub enum SpecType {
     Foundation,
     Poanet,
+    EtherLite,
+    EtherLiteTestnet,
     Xdai,
     Volta,
     Ewc,
@@ -69,6 +73,8 @@ impl str::FromStr for SpecType {
         let spec = match s {
             "eth" | "ethereum" | "foundation" | "mainnet" => SpecType::Foundation,
             "poanet" | "poacore" => SpecType::Poanet,
+            "etherlite" => SpecType::EtherLite,
+            "etherlitetestnet" => SpecType::EtherLiteTestnet,
             "xdai" => SpecType::Xdai,
             "volta" => SpecType::Volta,
             "ewc" | "energyweb" => SpecType::Ewc,
@@ -95,6 +101,8 @@ impl fmt::Display for SpecType {
         f.write_str(match *self {
             SpecType::Foundation => "foundation",
             SpecType::Poanet => "poanet",
+            SpecType::EtherLite => "etherlite",
+            SpecType::EtherLiteTestnet => "etherlitetestnet",
             SpecType::Xdai => "xdai",
             SpecType::Volta => "volta",
             SpecType::Ewc => "energyweb",
@@ -121,6 +129,8 @@ impl SpecType {
         match *self {
             SpecType::Foundation => Ok(ethereum::new_foundation(params)),
             SpecType::Poanet => Ok(ethereum::new_poanet(params)),
+            SpecType::EtherLite => Ok(ethereum::new_etherlite(params)),
+            SpecType::EtherLiteTestnet => Ok(ethereum::new_etherlite_testnet(params)),
             SpecType::Xdai => Ok(ethereum::new_xdai(params)),
             SpecType::Volta => Ok(ethereum::new_volta(params)),
             SpecType::Ewc => Ok(ethereum::new_ewc(params)),
@@ -374,8 +384,8 @@ pub fn mode_switch_to_bool(
 #[cfg(test)]
 mod tests {
     use super::{tracing_switch_to_bool, Pruning, ResealPolicy, SpecType, Switch};
+    use crate::user_defaults::UserDefaults;
     use journaldb::Algorithm;
-    use user_defaults::UserDefaults;
 
     #[test]
     fn test_spec_type_parsing() {
@@ -385,6 +395,8 @@ mod tests {
         assert_eq!(SpecType::Foundation, "mainnet".parse().unwrap());
         assert_eq!(SpecType::Poanet, "poanet".parse().unwrap());
         assert_eq!(SpecType::Poanet, "poacore".parse().unwrap());
+        assert_eq!(SpecType::EtherLite, "etherlite".parse().unwrap());
+        assert_eq!(SpecType::EtherLiteTestnet, "etherlitetestnet".parse().unwrap());
         assert_eq!(SpecType::Xdai, "xdai".parse().unwrap());
         assert_eq!(SpecType::Volta, "volta".parse().unwrap());
         assert_eq!(SpecType::Ewc, "ewc".parse().unwrap());
@@ -413,6 +425,8 @@ mod tests {
     fn test_spec_type_display() {
         assert_eq!(format!("{}", SpecType::Foundation), "foundation");
         assert_eq!(format!("{}", SpecType::Poanet), "poanet");
+        assert_eq!(format!("{}", SpecType::EtherLite), "etherlite");
+        assert_eq!(format!("{}", SpecType::EtherLiteTestnet), "etherlitetestnet");
         assert_eq!(format!("{}", SpecType::Xdai), "xdai");
         assert_eq!(format!("{}", SpecType::Volta), "volta");
         assert_eq!(format!("{}", SpecType::Ewc), "energyweb");

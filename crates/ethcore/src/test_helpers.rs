@@ -23,12 +23,12 @@ use blockchain::{
 };
 use blooms_db;
 use bytes::Bytes;
+use crypto::publickey::KeyPair;
+use db::KeyValueDB;
 use ethereum_types::{Address, H256, U256};
-use ethkey::KeyPair;
 use evm::Factory as EvmFactory;
 use hash::keccak;
 use io::IoChannel;
-use kvdb::KeyValueDB;
 use kvdb_rocksdb::{self, Database, DatabaseConfig};
 use parking_lot::RwLock;
 use rlp::{self, RlpStream};
@@ -112,7 +112,7 @@ pub fn create_test_block_with_data(
 
 /// Generates dummy client (not test client) with corresponding amount of blocks
 pub fn generate_dummy_client(block_number: u32) -> Arc<Client> {
-    generate_dummy_client_with_spec_and_data(Spec::new_test, block_number, 0, &[])
+    generate_dummy_client_with_spec_and_data(Spec::new_test, block_number, 0, &[], false)
 }
 
 /// Generates dummy client (not test client) with corresponding amount of blocks and txs per every block
@@ -126,6 +126,7 @@ pub fn generate_dummy_client_with_data(
         block_number,
         txs_per_block,
         tx_gas_prices,
+        false,
     )
 }
 
@@ -134,7 +135,7 @@ pub fn generate_dummy_client_with_spec<F>(test_spec: F) -> Arc<Client>
 where
     F: Fn() -> Spec,
 {
-    generate_dummy_client_with_spec_and_data(test_spec, 0, 0, &[])
+    generate_dummy_client_with_spec_and_data(test_spec, 0, 0, &[], false)
 }
 
 /// Generates dummy client (not test client) with corresponding amount of blocks, txs per block and spec
@@ -143,6 +144,7 @@ pub fn generate_dummy_client_with_spec_and_data<F>(
     block_number: u32,
     txs_per_block: usize,
     tx_gas_prices: &[U256],
+    force_sealing: bool,
 ) -> Arc<Client>
 where
     F: Fn() -> Spec,
@@ -150,11 +152,13 @@ where
     let test_spec = test_spec();
     let client_db = new_db();
 
+    let miner = Miner::new_for_tests_force_sealing(&test_spec, None, force_sealing);
+
     let client = Client::new(
         ClientConfig::default(),
         &test_spec,
         client_db,
-        Arc::new(Miner::new_for_tests(&test_spec, None)),
+        Arc::new(miner),
         IoChannel::disconnected(),
     )
     .unwrap();
@@ -169,7 +173,7 @@ where
     let mut last_hashes = vec![];
     let mut last_header = genesis_header.clone();
 
-    let kp = KeyPair::from_secret_slice(&keccak("")).unwrap();
+    let kp = KeyPair::from_secret_slice(keccak("").as_bytes()).unwrap();
     let author = kp.address();
 
     let mut n = 0;
@@ -350,6 +354,10 @@ impl BlockChainDB for TestBlockChainDB {
     }
 }
 
+impl stats::PrometheusMetrics for TestBlockChainDB {
+    fn prometheus_metrics(&self, _: &mut stats::PrometheusRegistry) {}
+}
+
 /// Creates new test instance of `BlockChainDB`
 pub fn new_db() -> Arc<dyn BlockChainDB> {
     let blooms_dir = TempDir::new("").unwrap();
@@ -360,7 +368,9 @@ pub fn new_db() -> Arc<dyn BlockChainDB> {
         trace_blooms: blooms_db::Database::open(trace_blooms_dir.path()).unwrap(),
         _blooms_dir: blooms_dir,
         _trace_blooms_dir: trace_blooms_dir,
-        key_value: Arc::new(::kvdb_memorydb::create(::db::NUM_COLUMNS.unwrap())),
+        key_value: Arc::new(ethcore_db::InMemoryWithMetrics::create(
+            ::db::NUM_COLUMNS.unwrap(),
+        )),
     };
 
     Arc::new(db)
@@ -374,13 +384,13 @@ pub fn new_temp_db(tempdir: &Path) -> Arc<dyn BlockChainDB> {
 
     let db_config = DatabaseConfig::with_columns(::db::NUM_COLUMNS);
     let key_value_db = Database::open(&db_config, key_value_dir.to_str().unwrap()).unwrap();
-
+    let key_value_db_with_metrics = ethcore_db::DatabaseWithMetrics::new(key_value_db);
     let db = TestBlockChainDB {
         blooms: blooms_db::Database::open(blooms_dir.path()).unwrap(),
         trace_blooms: blooms_db::Database::open(trace_blooms_dir.path()).unwrap(),
         _blooms_dir: blooms_dir,
         _trace_blooms_dir: trace_blooms_dir,
-        key_value: Arc::new(key_value_db),
+        key_value: Arc::new(key_value_db_with_metrics),
     };
 
     Arc::new(db)
@@ -413,13 +423,14 @@ pub fn restoration_db_handler(
             &self.trace_blooms
         }
     }
+    impl stats::PrometheusMetrics for RestorationDB {
+        fn prometheus_metrics(&self, _: &mut stats::PrometheusRegistry) {}
+    }
 
     impl BlockChainDBHandler for RestorationDBHandler {
         fn open(&self, db_path: &Path) -> io::Result<Arc<dyn BlockChainDB>> {
-            let key_value = Arc::new(kvdb_rocksdb::Database::open(
-                &self.config,
-                &db_path.to_string_lossy(),
-            )?);
+            let key_value = kvdb_rocksdb::Database::open(&self.config, &db_path.to_string_lossy())?;
+            let key_value = Arc::new(db::DatabaseWithMetrics::new(key_value));
             let blooms_path = db_path.join("blooms");
             let trace_blooms_path = db_path.join("trace_blooms");
             fs::create_dir_all(&blooms_path)?;
@@ -598,7 +609,7 @@ pub fn get_bad_state_dummy_block() -> Bytes {
     block_header.set_timestamp(40);
     block_header.set_number(1);
     block_header.set_parent_hash(test_spec.genesis_header().hash());
-    block_header.set_state_root(0xbad.into());
+    block_header.set_state_root(H256::from_low_u64_be(0xbad));
 
     create_test_block(&block_header)
 }

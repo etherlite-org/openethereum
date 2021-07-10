@@ -1,0 +1,222 @@
+{
+  "name": "tetl",
+  "engine": {
+    "authorityRound": {
+      "params": {
+        "stepDuration": 3,
+        "blockReward": "0x0",
+        "maximumUncleCountTransition": 0,
+        "maximumUncleCount": 0,
+        "validators": {
+          "multi": {
+            "0": {
+              "list": [
+                "0x9e200d505c03f7a74740d738f030573afbb8d24b",
+                "0x2e1678d29b39fa5204c9663d4ac27adb88f450c5",
+                "0xa8160bd050ac9b6e4c48f4e83a6eb923c940d27d",
+                "0x8ef483de9b49978e4fe7fd01f2545a071bf3347d",
+                "0x8c2295ef84acbc8212a427d70ded4c6ce3afee7d",
+                "0x0178b829725824f7f23031a128f7abee1740a6fa"
+              ]
+            },
+            "568": {
+              "contract": "0xA8657a2b9ECffA3A4362DCccC3D5c4701A8921DF"
+            }
+          }
+        },
+        "blockRewardContractTransitions": {
+          "568": "0xd231D5EDEA54Bfb634906a9Ea736EB6Ace07dd9A"
+        },
+        "randomnessContractAddress": {
+          "568": "0xA8B9B3f43E8e700760B88d05eec281fb9Cf35f3A"
+        },
+        "posdaoTransition": 568
+      }
+    }
+  },
+  "params": {
+    "gasLimitBoundDivisor": "0x400",
+    "maximumExtraDataSize": "0x20",
+    "minGasLimit": "0x1388",
+    "networkID": "0x8E",
+    "eip140Transition": "0x0",
+    "eip211Transition": "0x0",
+    "eip214Transition": "0x0",
+    "eip658Transition": "0x0",
+    "eip145Transition": "0x0",
+    "eip1014Transition": "0x0",
+    "eip1052Transition": "0x0",
+    "eip1283Transition": "0x0",
+    "eip1344Transition": "0x0",
+    "eip1706Transition": "0x0",
+    "eip1884Transition": "0x0",
+    "eip2028Transition": "0x0",
+    "registrar": "0x6c7f565121E205E8e78e7f718b55CD8e1625E0F7",
+    "transactionPermissionContract": "0xFB307255a1aF924EA807b9b57076014E4f4EAf45",
+    "transactionPermissionContractTransition": 568
+  },
+  "genesis": {
+    "seal": {
+      "authorityRound": {
+        "step": "0x0",
+        "signature": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "difficulty": "0x20000",
+    "gasLimit": "0x989680"
+  },
+  "nodes": [
+    "enode://0dd2b780a0433cf46fcac3f879a0092e81ac927825fe86b01aa84c6c066c7a054d432bc32a35e47dde79baaf5162820592ce0252352198fbe9189a4b939fe8e9@18.224.50.157:30300",
+    "enode://99d7984bf14d7980ab7e545e0142eb3ad9583933cd8ab600414be7b5a3cb8dd18dc844e503b3b2f03dd7ce295431cb373a4cb54c21f36e04e14f5b18e602fcb7@18.224.50.157:30301",
+    "enode://424a141db39397f52c1df7e1e39e7b05a01218dffbfc29804d7752ab21dd5f707044deadff88ce5fc764a5aefe288d339e056779bd8de4fdc4fbd57998797a62@3.141.134.220:30300",
+    "enode://293002ae2b1257bf9ecbdc048986fe4fec44a867519ed40d340342581a66cfa28f9fb69408fb2be4a2faeb480f0812e1a9337f815d5fe24654badc75206f9e03@3.141.134.220:30301",
+    "enode://d32ef5d81e378e19002f468f0b916e2c603294833372f28b018899c4e13a38558dbbb87878ea80d90bbbb3e28852d40d34c8c8fda122cf178a0aa8c67be6e989@3.130.10.194:30300",
+    "enode://8afc76884ff18ae0a416ec3409021bb0e1d4aa9612ab278413e1966e2b33464ae4e2314021ecc56d93ce979c39910eb38c86a3bef95014234a579cdd4df4efe5@3.130.10.194:30301"
+  ],
+  "accounts": {
+    "0000000000000000000000000000000000000005": {
+      "builtin": {
+        "name": "modexp",
+        "pricing": {
+          "0": {
+            "price": {
+              "modexp": {
+                "divisor": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000006": {
+      "builtin": {
+        "name": "alt_bn128_add",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_const_operations": {
+                "price": 150
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000007": {
+      "builtin": {
+        "name": "alt_bn128_mul",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_const_operations": {
+                "price": 6000
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000008": {
+      "builtin": {
+        "name": "alt_bn128_pairing",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_pairing": {
+                "base": 45000,
+                "pair": 34000
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000009": {
+      "builtin": {
+        "name": "blake2_f",
+        "pricing": {
+          "0": {
+            "price": {
+              "blake2_f": {
+                "gas_per_round": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000001": {
+      "balance": "1",
+      "builtin": {
+        "name": "ecrecover",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 3000,
+                "word": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000002": {
+      "balance": "1",
+      "builtin": {
+        "name": "sha256",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 60,
+                "word": 12
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000003": {
+      "balance": "1",
+      "builtin": {
+        "name": "ripemd160",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 600,
+                "word": 120
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000004": {
+      "balance": "1",
+      "builtin": {
+        "name": "identity",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 15,
+                "word": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "0xB05cc68867293Fd5B44F3B89Ea1149759811D9Eb": {
+      "balance": "11000000000000000000000000000"
+    },
+    "0x949cF2f2FF246aA636BBE3174A78b25ddB4192d6": {
+      "balance": "10000000000000000000000000000"
+    },
+    "0x53faade2613069847B2ff6689B734bc2562414b5": {
+      "balance": "21000000000000000000000000"
+    }
+  }
+}

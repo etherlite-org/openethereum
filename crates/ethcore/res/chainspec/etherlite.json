@@ -1,0 +1,235 @@
+{
+  "name": "etl",
+  "engine": {
+    "authorityRound": {
+      "params": {
+        "stepDuration": 3,
+        "blockReward": "0x0",
+        "maximumUncleCountTransition": 0,
+        "maximumUncleCount": 0,
+        "validators": {
+          "multi": {
+            "0": {
+              "list": [
+                "0xc34e4aeac05cbe6c1f0ee4d1046145404a92f56e",
+                "0x447b50438d84c0fe3064bff4f29e22d44ecde9f1",
+                "0x432c755ebe20e4cae84e020185f2fd47abf29eeb",
+                "0x5caa3562eb46ec07b6ee11256af2f2668ccb43cd",
+                "0xbdc74f8160208e2ba9ae9e905b6904dbbe28e47a",
+                "0xa2f7a93fc152e02e559c76c9c36964ed27f0ca6b"
+              ]
+            },
+            "15999": {
+              "contract": "0x41BaE281e97384EA5410DcbB62c15FA81010480a"
+            }
+          }
+        },
+        "blockRewardContractTransitions": {
+          "15999": "0x937a5541778791129B62c09CA5555A29C694F4Da"
+        },
+        "randomnessContractAddress": {
+          "15999": "0xC1a30cDcc596183d5622257b13a08F28244e5699"
+        },
+        "posdaoTransition": 15999
+      }
+    }
+  },
+  "params": {
+    "gasLimitBoundDivisor": "0x400",
+    "maximumExtraDataSize": "0x20",
+    "minGasLimit": "0x1388",
+    "networkID": "0x6F",
+    "eip140Transition": "0x0",
+    "eip211Transition": "0x0",
+    "eip214Transition": "0x0",
+    "eip658Transition": "0x0",
+    "eip145Transition": "0x0",
+    "eip1014Transition": "0x0",
+    "eip1052Transition": "0x0",
+    "eip1283Transition": "0x0",
+    "eip1344Transition": "0x0",
+    "eip1706Transition": "0x0",
+    "eip1884Transition": "0x0",
+    "eip2028Transition": "0x0",
+    "registrar": "0x2fFbbbE425e153c224DCB789103e87c0768FB5A5",
+    "transactionPermissionContract": "0x59187a4c4176FFaA57be10beA17057aC8B1Bc9f3",
+    "transactionPermissionContractTransition": 15999
+  },
+  "genesis": {
+    "seal": {
+      "authorityRound": {
+        "step": "0x0",
+        "signature": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    "difficulty": "0x20000",
+    "gasLimit": "0x989680"
+  },
+  "nodes": [
+    "enode://636195def83d3a5c420eaf5907549391f6702c1fd0c85b66a419b90b6af7908754aceaaa911236b5d0660a184960aab5b7785a6c87455d861c29cc76c0ba9fb6@65.1.219.106:30300",
+    "enode://f8fdeb5647ff32694029925ca79aeb50a61345f60a49cb264feb3d2f8bad7ea61774e9e52f683e7e4ada43aedbec97318cf4fd7cf349e82963df95ddfa9dfa25@52.197.202.193:30300",
+    "enode://d6ee5a89c98c3bf01d3ed0f8c09a765015a78124ffc2ff40755930de580a728541fd73ed00d2db2c41d5fe7b026e5ec651852d5fb114054cf625104c6e2bdcfd@13.237.108.173:30300",
+    "enode://8dc20c3d01444210667320a36c5d4875c99e4a3d5a592e941ee2096d0a03f7ca6bec8767403f67539518313769c9a211b05d1aedbd5e336e451e6a5bf823e3e2@13.237.108.173:30300",
+    "enode://4b68401209903b5336ce9267e82a60cf536c5966958122f992f75912c72e613a128844421c30aa5a81fc86dfc4f5bea85321845c30331089176bf3b6baadc438@54.176.138.226:30300",
+    "enode://bd16c8f1d891004d5b93e90006579219c6da39814beca09d9eb2592477505f05a8bbba15321ed11cad0dc8fa4937d983ce124bd72e3d7c378d14574839aed5da@54.151.64.6:30300",
+    "enode://c126a404ba4218183fd853cd76c9c5822ee09f787074ec50f0c945c370e17237724e6cc357a505a75bebb743b4d716c94bbab3b168ba10736a2518fa33a0b8c3@18.138.168.172:30300",
+    "enode://659a2eb84e02f930ea5777a31032c208b312088f5d48be16ee0e02735c0dc18937bca4958cb936ea67053dc3171ad7afb0153c942e5248eac6da7490c39a6496@13.36.126.134:30300",
+    "enode://3fc4cbdd1f8f2caecce52d6c1c212cfe1d9ff806bc5376cbe75c8fd20151c40fe17c65e14db3917b33ed7fb1771ee57a7cd7c9afca8e67d4672e6c0efbfc2b84@13.36.95.175:30300",
+    "enode://8862ce55decaf5b50d19a978e73b0e7e4817b46e7513ba05500b8ce9911213a0779a72c822794d04a94bdb05911a66ebabc844a0cb75a95672211a832bb40d30@65.1.115.134:30300",
+    "enode://133898000f38902565db995fc10c07c4417e42b369cd24ef4c49aea40dd9684e2851a77828ad14e114162a29f5c50fa13a2f54b555cb074941f33a4661543591@65.1.206.232:30300",
+    "enode://360989533f9b9436275833d1f83b58629482ce6df8645890bb95c64f0badabc7a55989e553b7c18253ee880c1608e72b7327856502b710443352df52cd6efbea@35.72.213.63:30300",
+    "enode://7f373e2d9921f644cfe716d5b7410485463f17dbe0f6383b1082d1bfacf42f13ebba97d45921a0de58b83ad54c861ecc052e733a1db9449fb758d3d0be78b016@35.73.116.213:30300",
+    "enode://b04098f16ff20712a9b419bebd8a8cd096641905362ec6151877e72669ee7a2b9f17b699cedeac8d6c433c3fa9c63301b654a50edabf86785d5baf91c318c1dd@54.232.163.60:30300",
+    "enode://1814ce8605af4349d60fa8733a7003df931dce7d6c4b87dca1912ca2a13184134d36bbd55b803fa41cc2ce0f04dac21a5dd90ba04161158db8ae2bd5c2973d00@18.228.229.129:30300",
+    "enode://156a72000740f0e59692a17811d32d1d513ecc8655c40c3b89b03efe622e2d87fdd2ccc011aa60690836ada508197d2b9b1827055f0f2e4fd02091480d75a45b@13.55.192.216:30300",
+    "enode://763a5b4c1755522fead9a6866bf36c4b8ad4041ecec9f84a26405686feb9f0fff5d09806267b0501986b336e0503a4d8e0a007965e1943b25dcfd1d89cb5cfe9@13.238.237.159:30300",
+    "enode://83affd389b7bff11d8788379b82e9a23779e070161c118b4a02d20a9e8cf8a4531c58474577badb7f3479b8b165d968593a5c6436056ad0b45a0eded87c2ad49@175.41.183.187:30300",
+    "enode://d0f84d302781cfa9cd26ac1b707b93dc2694232706c4989f30b8f799cf06fe54aa89caf607281ba0dc4ae87e61dbad4d604d096fa3d07256ab200ec942bc1545@54.151.131.226:30300",
+    "enode://d5e3b91925055c6b453d3f71d818b3fbf633b03a4bab2ee04e759763805c39cfe5e804b66659a1a98ca01cd6c97d88a6b43a5c2f1957eefb62fb03feb951f324@13.228.88.56:30300",
+    "enode://4086456735dda4f3260f0a10cf805a3493eccec5821bc746308285988644221bbde1f2958e7271924f14e86be5dd8ba7ab6ec1934a9e71eb1d89a76fa125228b@54.93.73.4:30300",
+    "enode://92286b6abe23d8859ffd48e617211a8716a0f544cf9fc2245780bc04f0f1272fac5087a93902c839b74e5e773a22c2c95272499fcc68f866508eff36f3321ab8@3.64.86.110:30300"
+  ],
+  "accounts": {
+    "0000000000000000000000000000000000000005": {
+      "builtin": {
+        "name": "modexp",
+        "pricing": {
+          "0": {
+            "price": {
+              "modexp": {
+                "divisor": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000006": {
+      "builtin": {
+        "name": "alt_bn128_add",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_const_operations": {
+                "price": 150
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000007": {
+      "builtin": {
+        "name": "alt_bn128_mul",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_const_operations": {
+                "price": 6000
+              }
+            }
+          }
+        }
+      }
+    },
+    "0000000000000000000000000000000000000008": {
+      "builtin": {
+        "name": "alt_bn128_pairing",
+        "pricing": {
+          "0": {
+            "price": {
+              "alt_bn128_pairing": {
+                "base": 45000,
+                "pair": 34000
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000009": {
+      "builtin": {
+        "name": "blake2_f",
+        "pricing": {
+          "0": {
+            "price": {
+              "blake2_f": {
+                "gas_per_round": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000001": {
+      "balance": "1",
+      "builtin": {
+        "name": "ecrecover",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 3000,
+                "word": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000002": {
+      "balance": "1",
+      "builtin": {
+        "name": "sha256",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 60,
+                "word": 12
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000003": {
+      "balance": "1",
+      "builtin": {
+        "name": "ripemd160",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 600,
+                "word": 120
+              }
+            }
+          }
+        }
+      }
+    },
+    "0x0000000000000000000000000000000000000004": {
+      "balance": "1",
+      "builtin": {
+        "name": "identity",
+        "pricing": {
+          "0": {
+            "price": {
+              "linear": {
+                "base": 15,
+                "word": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "0xAEA12F8842463d38815A0dD855336248B6c79849": {
+      "balance": "2500000000000000000000000"
+    },
+    "0xDAC2369d7d06D8ff99c12ef899C96B691c3288ae": {
+      "balance": "20997500000000000000000000000"
+    }
+  }
+}
